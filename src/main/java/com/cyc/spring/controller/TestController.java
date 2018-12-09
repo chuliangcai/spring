@@ -11,9 +11,4 @@ public class TestController {
     public String home() {
         return "hello world";
     }
-
-    public static void main(String[] args) throws Exception{
-        ObjectMapper objectMapper = new ObjectMapper();
-        System.out.println(objectMapper.writeValueAsString(new Student()));
-    }
 }

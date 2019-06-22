@@ -1,13 +1,12 @@
 package com.cyc.spring.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@RestController("/user")
 public class TestController {
 
-    @RequestMapping
+    @RequestMapping("/query")
     public String home() {
         return "hello world";
     }

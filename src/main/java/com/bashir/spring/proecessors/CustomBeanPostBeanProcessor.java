@@ -7,14 +7,13 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-
 @Component
 public class CustomBeanPostBeanProcessor implements BeanPostProcessor, BeanNameAware, BeanFactoryAware, InitializingBean, DisposableBean {
 
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
 //        System.out.println("before init:" + beanName);
-        return null;
+        return bean;
     }
 
     @Override
@@ -35,7 +34,7 @@ public class CustomBeanPostBeanProcessor implements BeanPostProcessor, BeanNameA
     @Override
     public Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException {
         System.out.println("after init:" + beanName);
-        return null;
+        return bean;
     }
 
     @Override

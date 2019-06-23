@@ -1,17 +1,19 @@
 package com.bashir.spring;
 
-import com.bashir.spring.proecessors.MyTypeFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.FilterType;
+
+import java.util.Collections;
 
 @SpringBootApplication
-@ComponentScan(includeFilters = {@ComponentScan.Filter(type = FilterType.CUSTOM, classes = MyTypeFilter.class)})
+//@ComponentScan(includeFilters = {@ComponentScan.Filter(type = FilterType.CUSTOM, classes = MyTypeFilter.class)})
 public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication app = new SpringApplication(Application.class);
+        app.setDefaultProperties(Collections
+                .singletonMap("server.port", "9090"));
+        app.run(args);
+//        SpringApplication.run(Application.class, args);
     }
-
 }

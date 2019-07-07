@@ -6,7 +6,5 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional(readOnly = true)
 public interface AccountDao extends JpaRepository<Account, Long> {
-
     Account findByName(String name);
-
 }

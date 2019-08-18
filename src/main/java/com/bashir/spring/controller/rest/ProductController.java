@@ -1,4 +1,4 @@
-package com.bashir.spring.controller;
+package com.bashir.spring.controller.rest;
 
 import com.bashir.spring.dao.ProductDao;
 import com.bashir.spring.service.ProductService;

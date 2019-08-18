@@ -1,4 +1,4 @@
-package com.bashir.spring.controller;
+package com.bashir.spring.controller.rest;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

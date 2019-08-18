@@ -40,18 +40,14 @@ public class BasicConfiguration extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable();
 
-        http.authorizeRequests().antMatchers("/api/**").authenticated()
+        http.authorizeRequests().antMatchers("/index/**").authenticated()
                 .anyRequest().permitAll();
 
         http.formLogin().successHandler(loginSuccessHandler);
 
 //        http.authorizeRequests().
 
-        http.logout()
-                .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
-                .logoutUrl("/api/logout")
-                .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
+        http.logout().logoutSuccessUrl("/login").invalidateHttpSession(true).deleteCookies("JSESSIONID");
 
         http.sessionManagement().maximumSessions(10).expiredUrl("/security");
     }

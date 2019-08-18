@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @Controller
@@ -21,12 +22,13 @@ public class RegistryController {
     private PasswordEncoder passwordEncoder;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(@Valid AccountVo accountVo) {
+    public String register(@Valid AccountVo accountVo, HttpServletResponse response) throws Exception {
         Account account = new Account();
         account.setName(accountVo.getName());
         account.setPassword(passwordEncoder.encode(accountVo.getPassword()));
         account.setEmail(accountVo.getEmail());
         accountDao.save(account);
+        response.sendRedirect("/spring/login");
         return "login";
     }
 

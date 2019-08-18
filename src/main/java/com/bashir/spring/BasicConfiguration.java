@@ -26,34 +26,41 @@ public class BasicConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private LoginSuccessHandler loginSuccessHandler;
 
+    @Autowired
+    private DaoAuthenticationProvider authenticationProvider;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
-
-        auth.authenticationProvider(authenticationProvider());//自定义provider
+        auth.authenticationProvider(authenticationProvider);
     }
 
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests().antMatchers("/static/**").permitAll();
+        http.csrf().disable();
+
+        http.authorizeRequests().antMatchers("/api/**").authenticated()
+                .anyRequest().permitAll();
 
         http.formLogin().successHandler(loginSuccessHandler);
 
-        http.logout().permitAll().invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID").logoutUrl("/api/logout").logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
+//        http.authorizeRequests().
+
+        http.logout()
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .logoutUrl("/api/logout")
+                .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
 
         http.sessionManagement().maximumSessions(10).expiredUrl("/security");
-
-        http.authorizeRequests()
-                .antMatchers("/api/**").authenticated();
     }
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
+    public DaoAuthenticationProvider authenticationProvider(@Autowired PasswordEncoder passwordEncoder) {
         DaoAuthenticationProvider authProvider
                 = new DaoAuthenticationProvider();
-        authProvider.setPasswordEncoder(new BCryptPasswordEncoder());
+        authProvider.setPasswordEncoder(passwordEncoder);
         authProvider.setUserDetailsService(userDetailsService);
         return authProvider;
     }

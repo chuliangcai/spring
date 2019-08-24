@@ -8,10 +8,12 @@ import java.util.Collection;
 
 public class SecurityUser implements UserDetails {
 
-    private Account user;
+    private String username;
+    private String password;
 
     public SecurityUser(Account user) {
-        this.user = user;
+        this.username = user.getName();
+        this.password = user.getPassword();
     }
 
     @Override
@@ -21,12 +23,12 @@ public class SecurityUser implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return user.getPassword();
+        return username;
     }
 
     @Override
